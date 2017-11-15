@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'base_model',
     # 第三方
     'rest_framework',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
