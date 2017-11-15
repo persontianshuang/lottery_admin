@@ -47,8 +47,25 @@ def welcome(request):
     sell_data = AmountProvince('四川').main()
     return render(request, 'welcome.html',sell_data)
 
-def order_list(request):
-    return render(request, 'order-list.html')
+    [{
+        time: '总数',
+        totle: '425324534455'
+    },
+        {
+            time: '今日',
+            totle: '3144534'
+        },
+        {
+            time: '本月',
+            totle: '5423452345'
+        },
 
-def member_list(request):
-    return render(request, 'member-list.html')
+    ]
+
+
+
+# def order_list(request):
+#     return render(request, 'order-list.html')
+#
+# def member_list(request):
+#     return render(request, 'member-list.html')
