@@ -1,67 +1,37 @@
-from django.shortcuts import get_object_or_404, render
 
+from django.http import HttpResponse
 from base_model.models import LottoOrder
 
+from .func.find_db import AmountProvince
 
+import json
 
-class AmountCity():
-    def __init__(self, city):
-        self.db = LottoOrder.objects.filter(city=city)
+from rest_framework.decorators import *
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+# IsOwnerOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 
-    def main(self):
-        return {'all': self.all()}
+from  base_model.models import User
 
-    def sum_amount(self, db):
-        return sum([x.amount for x in db])
+from utills.token import req_to_token
 
-    def all(self):
-        return self.sum_amount(self.db)
-
-
-class AmountProvince():
-    def __init__(self,province):
-        self.db = LottoOrder.objects.filter(province=province)
-        self.city = list(set([x.city for x in self.db]))
-
-    def main(self):
-        city_data = [{'city_name':x, 'amount_all':AmountCity(x).all()} for x in self.city]
-        return {'all': self.all(),'city': city_data}
-
-    def sum_amount(self,db):
-        return sum([x.amount for x in db])
-
-    def all(self):
-        return self.sum_amount(self.db)
-
-
-
-
-
-
+@api_view(['GET'])
+@authentication_classes((SessionAuthentication, JSONWebTokenAuthentication))
+@permission_classes((IsAuthenticated,))
 def index(request):
-    return render(request, 'index.html')
+    token_data = req_to_token(request)
 
-def welcome(request):
-
-    # sell_data = {'all':12342413.00,'today':43434.00,'yestoday':'64546.00'}
-    sell_data = AmountProvince('四川').main()
-    return render(request, 'welcome.html',sell_data)
-
-    [{
-        time: '总数',
-        totle: '425324534455'
-    },
-        {
-            time: '今日',
-            totle: '3144534'
-        },
-        {
-            time: '本月',
-            totle: '5423452345'
-        },
-
-    ]
-
+    this_users = User.objects.filter(username=token_data['username'])
+    if this_users:
+        this_user = this_users[0]
+        if this_user.role==1:
+            data = AmountProvince(this_user.province).main()
+            print(data)
+            # data = AmountProvince('四川').main()
+            return HttpResponse(json.dumps(data),content_type="application/json")
+        else:
+            return HttpResponse(json.dumps({'mes': '权限不够'}), content_type="application/json")
 
 
 # def order_list(request):

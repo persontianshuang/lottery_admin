@@ -15,9 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.contrib import admin
+from rest_framework_jwt.views import obtain_jwt_token,verify_jwt_token
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    url(r'^api-token-auth/', obtain_jwt_token),
+    url(r'^api-token-verify/', verify_jwt_token),
+
     url(r'^province/', include('province.urls')),
+    url(r'^city/', include('city.urls')),
+    url(r'^agent1/', include('agent1.urls')),
+    url(r'^agent2/', include('agent2.urls')),
+    url(r'^login/', include('login.urls')),
 ]
