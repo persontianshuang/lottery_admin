@@ -20,6 +20,7 @@ from django.contrib.auth.hashers import make_password, check_password
 
 from .serializers import LoginSerializer,UserRegSerializer
 
+from utills.role_table import role_map
 
 @api_view(['GET', 'POST'])
 def login(request):
@@ -35,7 +36,6 @@ def login(request):
             this_user = user[0]
             is_checked = check_password(req_data['password'], this_user.password)
             if is_checked:
-                print('c')
                 from rest_framework_jwt.settings import api_settings
 
                 jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
@@ -44,7 +44,9 @@ def login(request):
                 payload = jwt_payload_handler(this_user)
                 token = jwt_encode_handler(payload)
                 return_data.update({'name': this_user.name})
+                # return_data.update({'name': '测试'})
                 return_data.update({'token': 'JWT '+token})
+                return_data.update({'role': role_map(this_user.role)})
 
         return HttpResponse(json.dumps(return_data), content_type="application/json")
 

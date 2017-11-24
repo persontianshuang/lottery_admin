@@ -28,38 +28,7 @@ class AmountProvince():
 
     def main(self):
 
-        # def new_lo():
-        #     lo = LottoOrder()
-        #     lo.amount = random.randint(1, 5000)
-        #     lo.province = '四川'
-        #     lo.city = '绵阳'
-        #     lo.created = random.choice(range(1503635719,1511148621))
-        #     print(lo.amount)
-        #     lo.save()
-        # [new_lo() for x in range(1000)]
-        #
-        # for l in LottoOrder.objects.all():
-        #     # l.created = random.choice(range(1503635719,1511148621))
-        #     l.uid = str(random.choice(range(30,110)))
-        #     l.save()
 
-        # for u in User.objects.all():
-        #     str_nums = 'qwertyuipasdfgjklzxcvbnm'
-        #     u.name = ''.join([random.choice(str_nums) for _ in range(11)])
-        #     u.save()
-
-        # def new_user():
-        #     str_nums = '123456789'
-        #     user = User()
-        #     user.username = ''.join([random.choice(str_nums) for _ in range(11)])
-        #     user.mobile = user.username
-        #     user.pasword = 13333333333
-        #     user.role = random.choice([4,5])
-        #     user.save()
-        # [new_user() for _ in range(100)]
-
-
-        # print(self.alldb)
         return {
             'all': self.table_data(),
             'city': self.city_data(),
@@ -94,6 +63,18 @@ class AmountProvince():
 
         city_data = [to_dict(x) for x in city]
         return city_data
+
+
+    def search(self,last_str,now_str):
+        last_list = [x.strip() for x in last_str.split('-')]
+        now_list = [x.strip() for x in now_str.split('-')]
+        amount_time_range = AmountCommon(self.db).time_range(last_list,now_list)
+
+        data = {
+            'date': last_str + ' 到 ' + now_str,
+            'totle': amount_time_range
+        }
+        return data
 
     def sum_amount(self,db):
         return sum([x.amount for x in db])
@@ -156,4 +137,5 @@ class AmountProvince():
 # ap = AmountProvince('四川').city_data()
 # ap = AmountProvince('四川').today()
 # ap = AmountProvince('四川').main()
+# ap = AmountProvince('四川').search('2016-10-08','2017-11-23')
 # print(ap)

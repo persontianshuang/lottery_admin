@@ -37,6 +37,17 @@ class MainCity():
         want.append({'time': '本月','totle': base.this_month()})
         return want
 
+    def search(self,last_str,now_str):
+        last_list = [x.strip() for x in last_str.split('-')]
+        now_list = [x.strip() for x in now_str.split('-')]
+        amount_time_range = AmountCommon(self.db).time_range(last_list,now_list)
+
+        data = {
+            'date': last_str + ' 到 ' + now_str,
+            'totle': amount_time_range
+        }
+        return data
+
 
     def agent_data(self,role):
         # 查询该城市下的订单含有该级代理的所有uid

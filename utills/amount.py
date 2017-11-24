@@ -29,3 +29,16 @@ class AmountCommon():
         now = int(time.time())
         tdb = self.db.filter(created__range=(month_zero, now))
         return str(self.sum_amount(tdb))
+
+
+    def time_formater(self,year,month,day):
+        b = '{0}-{1}-{2} 00:00:00'.format(year, month, day)
+        month_zero = int(time.mktime(time.strptime(b, "%Y-%m-%d %H:%M:%S")))
+
+        return month_zero
+
+    def time_range(self,last,now):
+        tlast = self.time_formater(last[0], last[1], last[2])
+        tnow = self.time_formater(now[0], now[1], now[2])
+        tdb = self.db.filter(created__range=(tlast, tnow))
+        return str(self.sum_amount(tdb))
