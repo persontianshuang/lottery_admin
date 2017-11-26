@@ -4,6 +4,8 @@ from django.db import models
 
 from django.contrib.auth.models import AbstractUser
 
+
+
 class User(AbstractUser):
     # 用户的唯一标识
     uid = models.AutoField(primary_key=True)
@@ -34,6 +36,7 @@ class User(AbstractUser):
     # 推广页面标识
     auth_key = models.CharField(max_length=32,null=True,blank=True)
     access_token = models.CharField(max_length=100,null=True,blank=True)
+    # 一级代理,省，市都是分配
     province = models.CharField(max_length=100,null=True,blank=True)
     city = models.CharField(max_length=100,null=True,blank=True)
     provcode = models.CharField(max_length=10,null=True,blank=True)
@@ -69,12 +72,15 @@ class UserRecommend(models.Model):
     p1 = models.IntegerField(null=True,blank=True)
     # 一级代理，计算总额时，不用累加二级代理的值
     p2 = models.IntegerField(null=True,blank=True)
+    # 不用管下面的，是通过手机号来的
     # 市
     p3 = models.IntegerField(null=True,blank=True)
     # 省
     p4 = models.IntegerField(null=True,blank=True)
 
     uid_user = models.ForeignKey(User, null=True, blank=True)
+    # 原表基础上增加
+    created = models.IntegerField(null=True, blank=True)
 
 
 class LottoOrder(models.Model):
@@ -91,14 +97,21 @@ class LottoOrder(models.Model):
     payment = models.IntegerField(default=0)
     amount = models.DecimalField(max_digits=11, decimal_places=2,null=True,blank=True)
     status = models.IntegerField(default=-1)
-    province = models.CharField(max_length=100,null=True,blank=True)
+
+    province = models.CharField(max_length=100 , null=True,blank=True)
     city = models.CharField(max_length=100,null=True,blank=True)
     created = models.IntegerField(null=True,blank=True)
     changed = models.IntegerField(null=True,blank=True)
 
+    # 原表基础上增加
     from_agent = models.ForeignKey(UserRecommend,null=True,blank=True)
 
     # amount的总额 省份 时间  province  city
     # 排名
+
+#     代理1
+
+
+
 
 

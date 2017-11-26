@@ -16,53 +16,7 @@ from base_model.models import UserRecommend
 
 
 from utills.amount import AmountCommon
-import random
-# 省 124
-# 绵阳 126 成都 125
-# 4 为 一级 5 为2级
 
-# ura = UserRecommend.objects.all()
-# for x in ura:
-#     x.uid_user = User.objects.all().filter(uid=x.uid)[0]
-#     x.save()
-
-
-# for od in LottoOrder.objects.all():
-#     od.from_agent = random.choice(ura)
-#     od.save()
-
-def urd(uid,p3,p2):
-    ur = UserRecommend()
-    ur.uid = uid
-    # ur.p1 = '1'
-    if p2:
-        ur.p2 = p2
-    ur.p3 = p3
-    ur.p4 = 124
-    ur.save()
-r41 = ['38']
-r42 = ['122']
-# for u in User.objects.all():
-#     # u.uid
-#     # u.role
-#     if float(u.uid)<60:
-#
-#         if u.role==5:
-#             urd(u.uid,125, random.choice(r41))
-#         else:
-#             urd(u.uid,125, None)
-#             r41.append(u.uid)
-#
-#     else:
-#
-#         if u.role == 5:
-#             urd(u.uid,126, random.choice(r42))
-#         else:
-#             urd(u.uid, 126, None)
-#             r42.append(u.uid)
-#
-#     print(u.uid,u.role)
-    # u.save()
 
 
 class MainAgent1():

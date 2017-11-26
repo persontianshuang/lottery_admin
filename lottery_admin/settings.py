@@ -25,7 +25,7 @@ SECRET_KEY = '_ath^t^&y45hqu@awmy5jsv@)r2x1x7nrl0og+2__v+f@g3o^*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','localhost','caipiao1']
 
 AUTH_USER_MODEL = 'base_model.User'
 
@@ -96,6 +96,14 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '3306'
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'lottery',
+    #     'USER': 'root',
+    #     'PASSWORD': 'new_password',
+    #     'HOST': 'localhost',
+    #     'PORT': '3306'
+    # }
 }
 
 
