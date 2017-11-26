@@ -41,7 +41,7 @@ class RequestAuthGet(object):
 
     def __call__(self, f):
 
-        @api_view(['POST'])
+        @api_view(['GET'])
         @authentication_classes((SessionAuthentication, JSONWebTokenAuthentication))
         @permission_classes((IsAuthenticated,))
         def wrapped_f(*args):
