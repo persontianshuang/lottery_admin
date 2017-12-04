@@ -18,7 +18,6 @@ def search(request,user):
     return data
 
 
-@RequestAuthPost(1)
 def manage(request):
 
     # get list
@@ -28,11 +27,18 @@ def manage(request):
         @RequestAuthGet(1)
         def get(request):
             p3s =UserRecommend.objects.f(p4=uid,role=2)
-            for x in p3s:
-                user = User.objects.f(uid=x)
-                user.mobie
 
-            pass
+            def get_user_info():
+                user = User.objects.f(uid=x)
+                user.mobile
+                user.name
+                user.created
+                user.city
+                return data
+
+            data = [get_user_info(x) for x in p3s]
+
+            return data
 
     # post 修改 status
     # 通过uid查询user表。修改status状态
@@ -45,6 +51,8 @@ def manage(request):
                 this_user = users[0]
                 this_user.status= status
                 this_user.save()
+                return {'mes': 'ok'}
+
 
 
 
