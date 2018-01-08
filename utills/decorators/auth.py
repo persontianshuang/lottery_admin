@@ -7,7 +7,7 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
-from  base_model.models import User
+from base_model.models import User
 from utills.token import req_to_token
 
 
@@ -58,3 +58,4 @@ class RequestAuthGet(object):
                     return HttpResponse(json.dumps({'mes': '权限不够'}), content_type="application/json")
 
         return wrapped_f
+

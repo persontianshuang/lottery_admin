@@ -79,7 +79,7 @@ class UserRecommend(models.Model):
     p4 = models.IntegerField(null=True,blank=True)
 
     # 原表基础上增加
-    uid_user = models.ForeignKey(User, null=True, blank=True)
+    # uid_user = models.ForeignKey(User, null=True, blank=True)
     # 最新的  用户的购买上级随时会变
     # created = models.IntegerField(null=True, blank=True)
 #     用户的每次订单
@@ -105,7 +105,7 @@ class LottoOrder(models.Model):
     changed = models.IntegerField(null=True,blank=True)
 
     # 原表基础上增加
-    from_agent = models.ForeignKey(UserRecommend,null=True,blank=True)
+    # from_agent = models.ForeignKey(UserRecommend,null=True,blank=True)
 
     # amount的总额 省份 时间  province  city
     # 排名
